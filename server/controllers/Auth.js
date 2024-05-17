@@ -42,7 +42,7 @@ const login=async (req,res)=>{
     }
 }
 
-const signup=async ()=>{
+const signup=async (req,res)=>{
     try{
        const {name,email,password}=req.body;
        if(!name||!email||!password){
