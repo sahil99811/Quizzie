@@ -75,3 +75,5 @@ const signup=async ()=>{
         errorResponse(res, 500, 'server error Please try again.');
     }
 }
+
+module.exports={login,signup};
