@@ -1,10 +1,12 @@
 const express=require('express');
 const app=express();
 const {dbConnect}=require('./config/databaseConnect')
+const authRoutes=require('./routes/Auth');
 const dotenv=require('dotenv');
 
 dotenv.config();
-
+app.use(express.json());
+app.use('/api/v1/auth',authRoutes);
 dbConnect()
     .then(() => {
         console.log("Database connected successfully");
