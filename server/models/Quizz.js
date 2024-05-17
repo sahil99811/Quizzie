@@ -1,0 +1,70 @@
+const mongoose=require('mongoose');
+
+const quizzSchema=new mongoose.Schema({
+    quizzName:{
+        type:String,
+        required:true
+    },
+    quizzType:{
+        enum:["Poll","Q&A"],
+        required:true
+    },
+    selectedOptions:{
+        type:{
+            "option1":{
+              type:Number,
+              default:0
+            },
+            "option2":{
+                type:Number,
+                default:0
+              },
+            "option3":{
+              type:Number,
+              default:0
+            },
+            "option4":{
+              type:Number,
+              default:0
+            },
+        }
+    },
+    submissionCount:{
+        type:{
+           "questionAnswered":{
+            type:Number,
+            default:0
+           },
+           "correctAnswerd":{
+            type:Number,
+            default:0
+           },
+           "incorrectAnswered":{
+            type:Number,
+            default:0
+           }
+        }
+    },
+    questions:[
+        {
+            type:mongoose.Types.ObjectId,
+            ref:"question"
+        }
+    ],
+    impression:{
+        type:Number,
+        default:0
+    },
+    timer:{
+        type:String,
+        enum:['OFF','5','10'],
+        default:'OFF'
+    },
+    createdBy:{
+        type:String,
+        required:true
+    }
+},{timestamps:true});
+
+
+module.exports=mongoose.model('quizz',quizzSchema);
