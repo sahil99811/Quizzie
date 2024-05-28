@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from '../../styles/auth/SignupForm.module.css';
 import formValidation from '../../utility/formValidation';
-import { toast } from 'react-hot-toast';
+import toast  from 'react-hot-toast';
 import {signup} from '../../apis/auth'
-import {setToken} from '../../slices/authSlice'
+
 export default function SignupForm() {
   
     const [signupData, setSignupData] = useState({
@@ -52,7 +52,7 @@ export default function SignupForm() {
     };
     if(errors.name&&signupData.name!==""){
         setSignupData({...signupData,name:""});
-      
+        
     }
     if(errors.email&&signupData.email!==""){
         setSignupData({...signupData,email:""});
@@ -66,6 +66,7 @@ export default function SignupForm() {
         setSignupData({...signupData,confirmpassword:""});
        
     }
+    
     return (
         <form className={style.container} onSubmit={onSubmitHandler}>
             <div className={style.inputContainer}>

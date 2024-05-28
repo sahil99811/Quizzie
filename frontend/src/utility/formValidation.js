@@ -1,5 +1,5 @@
 import validator from "validator";
-
+import toast from "react-hot-toast";
 const formValidation=(formdata)=>{
     const newError={
         name:"",
@@ -15,7 +15,8 @@ const formValidation=(formdata)=>{
             newError.email="Invalid email"
         }
         if(/^[a-z]+$/.test(formdata.password)||/^[A-Z]+$/.test(formdata.password)||/^\d+$/.test(formdata.password)||formdata.password.length<6){
-            newError.password="Weak Password"
+            newError.password="Weak Password";
+            toast.error("Password Must Contain atleast 1 Capital letter,1 Small letter,1 Numeric Value and length greater than 6")
         }
         if(formdata.password!==formdata.confirmpassword)
             newError.confirmpassword="Password doesn't match"
