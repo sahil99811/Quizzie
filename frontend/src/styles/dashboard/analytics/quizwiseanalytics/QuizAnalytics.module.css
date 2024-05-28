@@ -1,0 +1,113 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+.upperContainer{
+    display: flex;
+    flex-direction: row;
+    width: 82%;
+    height: 100px;
+    max-width: 1000px;
+    margin:auto;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.upperContainer>p{
+    color: rgba(80, 118, 255, 1);
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+.quizDetails{
+    display: flex;
+    width: 230px;
+    flex-direction: column;
+    gap: 2px;
+    color:rgba(255, 93, 1, 1) ;
+    justify-content: center;
+    font-size:0.75rem;
+    font-weight: 600;
+    margin-right: -3rem;
+   
+}
+
+.lowerContainer{
+   display: flex;
+   width:inherit;
+   margin-top: 0px;
+   height:calc(100vh - 100px);
+   overflow-y: scroll;
+   
+}
+.questionsData{
+    display:flex ;
+    flex-direction: column;
+    width:82%;
+    max-width: 1000px;
+    margin:0 auto;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+@media screen and (min-width:992px){
+   
+    .upperContainer{ 
+        height: 120px;
+        max-width: 1000px;
+       
+    }
+    .upperContainer>p{
+        
+        font-size: 2rem;
+       
+    }
+    .quizDetails{
+        width: 260px;
+        gap: 2px;  
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    
+    .lowerContainer{
+       display: flex;
+       width:inherit;
+       height:calc(100vh - 120px);
+       overflow-y: scroll;
+    }
+    .questionsData{
+        width:82%;
+        gap: 1.8rem;
+    }
+}
+
+@media screen and (min-width:1200px){
+   
+    .upperContainer{
+        height: 170px;
+        max-width: 1000px;
+    }
+    .upperContainer>p{
+        font-size: 2.4rem;
+    }
+    .quizDetails{
+        gap: 3px; 
+        font-size: 1.1rem;
+        font-weight: 600;
+        width: 350px;
+        /* margin-right: -7rem; */
+    }
+    
+    .lowerContainer{
+       display: flex;
+       width:inherit;
+       height:calc(100vh - 170px);
+       overflow-y: scroll;
+    }
+    .questionsData{
+        
+        width:82%;  
+        gap: 2.1rem;
+    }
+}

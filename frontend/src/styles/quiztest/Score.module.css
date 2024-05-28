@@ -1,0 +1,96 @@
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+ }
+
+ .container>:first-child{
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: rgba(71, 68, 68, 1);
+    text-align: center;
+ }
+
+ .score{
+    font-size: 2.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 0.5rem;
+    color: rgba(71, 68, 68, 1);
+ }
+ .score>span{
+    color:rgba(96, 184, 75, 1) ;
+ }
+ .polloutput{
+   text-align: center;
+   font-size: 2.6rem;
+   margin:auto 1rem;
+   font-weight: 700;
+   color: rgba(71, 68, 68, 1);
+ }
+
+ @media only screen and (min-width: 768px) {
+   .container>:first-child{
+      font-size:2.5rem;
+      
+   }
+   .score{
+      font-size:2.5rem;
+      
+   }
+   .polloutput{
+      font-size: 3.8rem;
+      margin:auto  6rem;
+      font-weight: 700;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+   .container>:first-child{
+      font-size:2.8rem;
+      
+   }
+   .score{
+      font-size:2.8rem;
+      
+   }
+   .container>img{
+      width: 250px;
+   }
+   .polloutput{
+      text-align: center;
+      font-size: 4.6rem;
+      margin:auto 12rem;
+      font-weight: 700;
+    }
+}
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+   .container>:first-child{
+      font-size:3.4rem;
+      
+   }
+   .score{
+      font-size:3.4rem;
+      
+   }
+   .container>img{
+      width: 300px;
+     
+   }
+   .polloutput{
+      text-align: center;
+      font-size: 4.6rem;
+      margin:auto 16rem;
+      font-weight: 700;
+    }
+}
