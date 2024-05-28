@@ -61,7 +61,7 @@ const signup = async (req, res) => {
         }
 
         // Check if user with the same email already exists
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ email:email.toLowerCase() });
         if (existingUser) {
             return errorResponse(res,401,"User Already exist")
         }

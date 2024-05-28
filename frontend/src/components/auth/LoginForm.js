@@ -11,7 +11,7 @@ export default function LoginForm() {
     email: "",
     password: ""
   });
-
+  const [loading,setloading]=useState(false);
   const dispatch=useDispatch();
 
   const onChangeHandler = (event) => {
@@ -28,15 +28,18 @@ export default function LoginForm() {
       toast.error("Please enter a valid email");
       return;
     }
-
+    setloading(true);
     const result = await login(formData);
     if(result){
       console.log(result);
       dispatch(setToken(result))
     }
+    setloading(false);
   };
 
   return (
+    <>
+    {loading&&<p style={{"position":"absolute","marginTop":"-1.5rem","fontSize":"2rem"}}>Loading...</p>}
     <form className={style.container} onSubmit={onSubmitHandler}>
       <div className={style.inputContainer}>
         <label className={style.label}>Email</label>
@@ -64,5 +67,6 @@ export default function LoginForm() {
         Log in
       </button>
     </form>
+    </>
   );
 }

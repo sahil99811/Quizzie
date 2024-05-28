@@ -35,7 +35,6 @@ export const signup=async(formdata)=>{
             return status===400||status===401||status===201
         }
     });
-    console.log(result.status)
     if(result.status===400){
         toast.error(result.data.message);
         return  false;

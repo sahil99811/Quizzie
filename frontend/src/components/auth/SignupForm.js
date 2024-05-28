@@ -5,7 +5,7 @@ import toast  from 'react-hot-toast';
 import {signup} from '../../apis/auth'
 
 export default function SignupForm() {
-  
+    const [loading,setloading]=useState(false);
     const [signupData, setSignupData] = useState({
         name:"",
         email:"",
@@ -46,8 +46,12 @@ export default function SignupForm() {
         console.log(validationErrors);
         setErrors(validationErrors);
         if (!validationErrors.name&&!validationErrors.email&&!validationErrors.password&&!validationErrors.confirmpassword) {
-         await signup(signupData)
-         setSignupData({ name:"",email:"",password:"",confirmpassword:""})
+         setloading(true);
+         const result=await signup(signupData)
+         if(result){
+            setSignupData({ name:"",email:"",password:"",confirmpassword:""})
+         }
+         setloading(false);
         } 
     };
     if(errors.name&&signupData.name!==""){
@@ -68,7 +72,11 @@ export default function SignupForm() {
     }
     
     return (
-        <form className={style.container} onSubmit={onSubmitHandler}>
+        <>
+        {
+            loading&&<p style={{"position":"absolute","marginTop":"-1.5rem","fontSize":"2rem"}}>Loading...</p>
+        }
+         <form className={style.container} onSubmit={onSubmitHandler}>
             <div className={style.inputContainer}>
                 <label className={style.label}>Name</label>
                 <input
@@ -115,5 +123,6 @@ export default function SignupForm() {
             </div>
             <button type='submit' className={style.button}>Sign-Up</button>
         </form>
+        </>
     );
 }
