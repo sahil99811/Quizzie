@@ -81,7 +81,7 @@ export const getQuizzAnalysis = async (token, quizId, dispatch) => {
                 toast.success(result?.data?.message); // Show success toast
             }
             return result; // Return the result if status is 201
-        } else if (result.status === 404) {
+        } else if (result?.status === 404) {
             toast.error(result?.data?.message); // Show error toast if quiz is not found
             return false;
         }

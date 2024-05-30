@@ -24,7 +24,11 @@
    border: none;
    border-radius: 10px;
    cursor: pointer;
-   background-color: inherit;
+  
+}
+.image
+{
+   background-color:inherit;;  
 }
 .textimage{
    justify-content: space-between;

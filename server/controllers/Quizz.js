@@ -119,7 +119,7 @@ exports.getQuizzAnalysis = async (req, res) => {
         const quizz = await Quizz.findOne({ _id: quizId, createdBy: id })
             .select("questions quizzType quizzName impression createdAt")
             .populate({ path: "questions", select: "selectedOptions correctAnswered incorrectAnswered description options" });
-
+         console.log(quizz)
         if (!quizz) {
             return errorResponse(res, 404, 'Invalid quiz id');
         }
