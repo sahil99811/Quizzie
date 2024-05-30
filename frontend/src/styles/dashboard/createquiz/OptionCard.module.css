@@ -1,0 +1,195 @@
+
+.textContainer{
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.6rem;
+}
+.text{
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+
+.inputText{
+    width: 240px;
+    height:35px;
+    background-color: rgba(255, 255, 255, 1);
+    color:rgba(159, 159, 159, 1) ;
+    font-weight: 500;
+    font-size: 1rem;
+    padding-left: 0.6rem;
+    padding: auto;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 25px 0px rgba(0, 0, 0, 0.15);
+}
+.text>img{
+    height:18px;
+}
+.addsection{
+    width: 200px;
+    height: 35px;
+    margin-left: 2rem;
+    border: none;
+    border-radius: 8px;
+    background-color:rgba(255, 255, 255, 1) ;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: 0 0 25px 0px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    color: rgba(159, 159, 159, 1);
+}
+
+.buttonContainer{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: -0.3rem;
+}
+.cancelbutton {
+    width: 230px;
+    height: 33px;
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(71, 68, 68, 1);
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    cursor: pointer; 
+
+}
+
+
+.createbutton{
+    width: 230px;
+    height:33px;
+    background-color: 
+    rgba(96, 184, 75, 1);
+    color:rgba(255, 255, 255, 1) ;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    cursor: pointer;
+}
+
+.imageContainer{
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.6rem;
+}
+.image{
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+
+.inputImage{
+    width: 240px;
+    height:35px;
+    background-color: rgba(255, 255, 255, 1);
+    color:rgba(159, 159, 159, 1) ;
+    font-weight: 500;
+    font-size: 1rem;
+    padding-left: 0.6rem;
+    padding: auto;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 25px 0px rgba(0, 0, 0, 0.15);
+}
+.image>img{
+    height:18px;
+}
+
+.textimageContainer{
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.6rem;
+}
+.textimage{
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+
+.textImageText{
+    width: 130px;
+    height:35px;
+    background-color: rgba(255, 255, 255, 1);
+    color:rgba(159, 159, 159, 1) ;
+    font-weight: 500;
+    font-size: 1rem;
+    padding-left: 0.6rem;
+    padding: auto;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 25px 0px rgba(0, 0, 0, 0.15);
+}
+.textImageUrl{
+    width:200px;
+    height:35px;
+    background-color: rgba(255, 255, 255, 1);
+    color:rgba(159, 159, 159, 1) ;
+    font-weight: 500;
+    font-size: 1rem;
+    padding-left: 0.6rem;
+    padding: auto;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 25px 0px rgba(0, 0, 0, 0.15);
+}
+.textimage>img{
+    height:18px;
+}
+
+.timerContainer > .activeTimer {
+    background-color: rgba(214, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);
+}
+.radioOuterDiv {
+    width: 19px;
+    height: 19px;
+    border: none;
+    border-radius: 100%;
+    border: 2px solid rgba(217, 217, 217, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    cursor: pointer;
+}
+
+.radioInnerDiv {
+    width: 11px;
+    height: 11px;
+    border: none;
+    border-radius: 100%;
+    background-color:
+    rgba(255, 255, 255, 1);
+    cursor: pointer;
+}
+.activeRadio{
+    background-color: rgba(96, 184, 75, 1);
+}
+.activeSelectedOptions{
+    background-color:rgba(96, 184, 75, 1);
+    color: rgb(255, 255, 255,1);
+}
+.activeSelectedOptions::placeholder{
+    color: rgb(255, 255, 255,1);
+}

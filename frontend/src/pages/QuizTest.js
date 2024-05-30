@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
-import style from '../styles/quiztest/QuizTest.module.css';
-import Questions from '../components/quiztest/Questions';
-export default function QuizTest() {
+import React from 'react'; // Import React library
+import style from '../styles/quiztest/QuizTest.module.css'; // Import CSS module for styling
+import Questions from '../components/quiztest/Questions'; // Import Questions component
 
-  return (
-    <div className={style.container}>
-      <Questions/>
-    </div>
-  )
+// Functional component representing the quiz test page
+export default function QuizTest() {
+    return (
+        <div className={style.container}>
+            {/* Render the Questions component */}
+            <Questions />
+        </div>
+    );
 }
-   

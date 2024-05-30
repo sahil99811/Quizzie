@@ -69,7 +69,6 @@ const questionSchema = new mongoose.Schema({
     },
     correctOption: {
         type: Number,
-        required: true // correctOption is required
     },
 }, { timestamps: true }); // Automatically add createdAt and updatedAt timestamps
 

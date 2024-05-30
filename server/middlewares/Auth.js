@@ -20,7 +20,7 @@ exports.auth = async (req, res, next) => {
 		} catch (error) {
 			// If JWT verification fails, return 401 Unauthorized response
 			console.log(error);
-			return res.status(402).json({ success: false, message: "Token is invalid" });
+			return res.status(401).json({ success: false, message: "Token is invalid or Token is expired" });
 		}
 
 		// If JWT is valid, move on to the next middleware or request handler

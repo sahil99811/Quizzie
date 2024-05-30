@@ -22,14 +22,14 @@
 }
 .quizDetails{
     display: flex;
-    width: 230px;
+
     flex-direction: column;
     gap: 2px;
     color:rgba(255, 93, 1, 1) ;
     justify-content: center;
     font-size:0.75rem;
     font-weight: 600;
-    margin-right: -3rem;
+   
    
 }
 
@@ -63,12 +63,6 @@
         font-size: 2rem;
        
     }
-    .quizDetails{
-        width: 260px;
-        gap: 2px;  
-        font-size: 0.85rem;
-        font-weight: 600;
-    }
     
     .lowerContainer{
        display: flex;
@@ -91,13 +85,7 @@
     .upperContainer>p{
         font-size: 2.4rem;
     }
-    .quizDetails{
-        gap: 3px; 
-        font-size: 1.1rem;
-        font-weight: 600;
-        width: 350px;
-        /* margin-right: -7rem; */
-    }
+   
     
     .lowerContainer{
        display: flex;

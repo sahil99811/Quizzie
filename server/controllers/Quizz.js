@@ -1,4 +1,5 @@
 
+const { default: mongoose } = require('mongoose');
 const Question = require('../models/Question');
 const Quizz = require('../models/Quizz');
 
@@ -28,7 +29,7 @@ exports.createQuizz = async (req, res) => {
                 description: question.description,
                 optionType: question.optionType,
                 options: question.options,
-                correctOption: Number(question.correctOption) + 1,
+                correctOption:question.correctOption,
             });
             allQuestions.push(questionData._id);
         }
@@ -72,7 +73,11 @@ exports.getTrendingQuizzs = async (req, res) => {
         ]);
 
         // Retrieve top trending 12 quizzes by impression
-        const trendingQuizzes = await Quizz.find({ createdBy: id }).sort({ impression: -1 }).limit(12);
+        const trendingQuizzes = await Quizz.find({ 
+            createdBy: id, 
+            impression: { $gt: 10 } 
+        }).sort({ impression: -1 }).limit(12);
+        
 
         // Send success response
         res.status(201).json({
@@ -113,19 +118,24 @@ exports.getQuizzAnalysis = async (req, res) => {
         const { quizId } = req.params;
         const quizz = await Quizz.findOne({ _id: quizId, createdBy: id })
             .select("questions quizzType quizzName impression createdAt")
-            .populate({ path: "questions", select: "selectedOptions correctAnswered incorrectAnswered description" });
+            .populate({ path: "questions", select: "selectedOptions correctAnswered incorrectAnswered description options" });
+
+        if (!quizz) {
+            return errorResponse(res, 404, 'Invalid quiz id');
+        }
 
         // Send success response
-        return res.status(201).json({
+        return res.status(200).json({
             success: true,
-            message: "Successfully fetched quizz analysis",
+            message: "Successfully fetched quiz analysis",
             quizz
         });
     } catch (error) {
         console.error(error);
-        errorResponse(res, 500, 'Internal server error');
+        return errorResponse(res, 500, 'Internal server error');
     }
 };
+
 
 // Delete a quiz and its associated questions
 exports.deleteQuiz = async (req, res) => {
@@ -162,10 +172,10 @@ exports.getQuizDetails = async (req, res) => {
 
         // Query the quiz details
         const quizDetails = await Quizz.findOne({ createdBy: id, _id: quizId })
-            .select('questions quizzType')
+            .select('questions quizzType timer')
             .populate({
                 path: 'questions',
-                select: 'description optionType options'
+                select: 'description optionType options correctOption'
             });
 
         if (!quizDetails) {
@@ -173,7 +183,7 @@ exports.getQuizDetails = async (req, res) => {
         }
 
         // Send success response
-        res.status(200).json({ success: true, message: "Successfully fetched quiz details", data: quizDetails });
+        res.status(200).json({ success: true, message: "Successfully fetched quiz details", quizDetails });
     } catch (error) {
         console.error(error);
         errorResponse(res, 500, 'Internal server error');
@@ -185,53 +195,67 @@ exports.updateQuiz = async (req, res) => {
     try {
         const { id } = req.user; // User ID from authentication middleware
         const { quizId } = req.params; // Quiz ID from URL params
-        const { questions } = req.body; // Questions array from request body
+        const { questions ,timer} = req.body; // Questions array from request body
 
         // Check if required fields are missing
-        if (!questions) {
-            return errorResponse(res, 400, 'Questions field is required');
+        if (!questions||!timer) {
+            return errorResponse(res, 400, 'all field is required');
         }
-
+        console.log(questions[0].options,timer);
         // Fetch the quiz to ensure it exists and belongs to the user
         const quiz = await Quizz.findOne({ _id: quizId, createdBy: id });
         if (!quiz) {
             return res.status(404).json({ success: false, message: 'Quiz not found' });
         }
-
+        const allQuestions = [];
         // Validate and update each question
         for (const question of questions) {
-            console.log(question);
-            await Question.findByIdAndUpdate(
-                { _id: question.id, createdBy: id },
+            console.log(question._id);
+            const qz=await Question.findByIdAndUpdate(
+                { _id:new mongoose.Types.ObjectId(question._id), createdBy: id },
                 {
                     description: question.description,
                     optionType: question.optionType,
                     options: question.options,
                     correctOption: question.correctOption,
-                    timer: question.timer
-                }
+                },
+                { new: true } // This option returns the updated document
             );
+            if(!qz){
+                const newQz=await  Question.create({
+                    description: question.description,
+                    optionType: question.optionType,
+                    options: question.options,
+                    correctOption:question.correctOption,
+                });
+                allQuestions.push(newQz._id);
+            }
+            else{
+                allQuestions.push(qz._id);
+            }
         }
-
+        quiz.questions = allQuestions; 
+        quiz.timer=timer
+        await quiz.save();
         // Send success response
-        res.status(201).json({ success: true, message: 'Quiz updated successfully' });
+        res.status(200).json({ success: true, message: 'Quiz updated successfully' });
     } catch (error) {
         console.error(error);
         errorResponse(res, 500, 'Internal server error');
     }
 };
 
+
 // Fetch quiz test questions and update impressions
 exports.quizTest = async (req, res) => {
     try {
         const { quizId } = req.params;
-        console.log(quizId);
+
 
         // Update quiz impression
         const quiz = await Quizz.findByIdAndUpdate(quizId, { $inc: { impression: 1 } });
         if (!quiz) {
-           return errorResponse(res, 201, 'Invalid Quiz Link');
-            
+            return errorResponse(res, 404, 'Invalid Quiz Link');
         }
 
         // Fetch quiz questions
@@ -254,26 +278,25 @@ exports.quizTest = async (req, res) => {
 exports.submitTest = async (req, res) => {
     try {
         const { quizId, selectedOptions } = req.body;
-        console.log(quizId, selectedOptions);
-
         const quizzQuestions = await Quizz.findById(quizId).select('quizzType');
 
         if (!quizzQuestions) {
-            return errorResponse(res,404, 'Quiz Not Found');;
+            return errorResponse(res, 404, 'Quiz Not Found');
         }
 
         if (quizzQuestions.quizzType === "Poll") {
             await updatePollResults(selectedOptions);
-            res.status(201).json({ success: true, message: 'Poll results updated successfully' });
+            res.status(200).json({ success: true, message: 'Poll results updated successfully' });
         } else if (quizzQuestions.quizzType === "Q&A") {
             const score = await calculateScore(selectedOptions);
-            res.status(201).json({ success: true, score, message: 'Here is your score' });
+            res.status(200).json({ success: true, score, message: 'Here is your score' });
         }
     } catch (error) {
         console.error(error);
         errorResponse(res, 500, 'Internal server error');
     }
 };
+
 
 // Helper function to update poll results
 async function updatePollResults(selectedOptions) {
@@ -285,16 +308,16 @@ async function updatePollResults(selectedOptions) {
         const update = {};
 
         switch (selectedOption) {
-            case '1':
+            case 0:
                 update['selectedOptions.option1'] = 1;
                 break;
-            case '2':
+            case 1:
                 update['selectedOptions.option2'] = 1;
                 break;
-            case '3':
+            case 2:
                 update['selectedOptions.option3'] = 1;
                 break;
-            case '4':
+            case 3:
                 update['selectedOptions.option4'] = 1;
                 break;
             default:
@@ -323,9 +346,8 @@ async function calculateScore(selectedOptions) {
     for (const questionId in selectedOptions) {
         const selectedOption = selectedOptions[questionId];
         const questionData = await Question.findById(questionId).select("correctOption");
-
         // Increment score if the selected option is correct
-        if (Number(selectedOption) === questionData.correctOption) {
+        if (selectedOption=== questionData.correctOption) {
             score++;
             await Question.findByIdAndUpdate(questionId, {
                 $inc: { correctAnswered: 1 }

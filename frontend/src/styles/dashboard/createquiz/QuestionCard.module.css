@@ -115,11 +115,31 @@
 }
 .optiontype>input{
     width:16px;
-    
-    accent-color:rgba(53, 52, 52, 1)
+  
+}
+.radioOuterDiv {
+    width: 19px;
+    height: 19px;
+    border: none;
+    border-radius: 100%;
+    border: 2px solid rgba(217, 217, 217, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    cursor: pointer;
 }
 
-
+.radioInnerDiv {
+    width: 11px;
+    height: 11px;
+    border: none;
+    border-radius: 100%;
+    background-color:inherit;
+    cursor: pointer;
+}
+.activeRadio{
+    background-color:rgba(53, 52, 52, 1);
+}
 .selectOption{
   display: flex;
   margin-left:3rem;

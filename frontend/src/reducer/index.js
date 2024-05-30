@@ -1,9 +1,13 @@
-import {combineReducers} from "@reduxjs/toolkit";
-import authReducer from "../slices/authSlice";
-import popupReducer from '../slices/popupSlice' 
-const rootReducer  = combineReducers({
-    auth: authReducer,
-    popup:popupReducer
-})
+import { combineReducers } from "@reduxjs/toolkit"; // Import combineReducers from Redux Toolkit
 
-export default rootReducer
+import authReducer from "../slices/authSlice"; // Import the auth reducer
+import popupReducer from '../slices/popupSlice'; // Import the popup reducer
+
+// Combine the individual reducers into a single root reducer
+const rootReducer = combineReducers({
+    auth: authReducer, // Assign the auth reducer to the 'auth' slice of state
+    popup: popupReducer // Assign the popup reducer to the 'popup' slice of state
+});
+
+// Export the combined root reducer as the default export
+export default rootReducer;

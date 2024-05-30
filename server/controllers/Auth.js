@@ -7,7 +7,7 @@ const generateToken = (user) => {
     return jwt.sign(
         { id: user._id.toString() }, // Payload with user ID
         process.env.JWT_SECRET, // Secret key from environment variables
-        { expiresIn: '24h' } // Token expiration time
+        { expiresIn: '24hr' } // Token expiration time
     );
 };
 
@@ -42,7 +42,7 @@ const login = async (req, res) => {
                 userId: user._id.toString(),
             });
         } else {
-            return errorResponse(res, 402, 'Invalid credential..');
+            return errorResponse(res, 401, 'Invalid credential..');
         }
     } catch (err) {
         console.error('Login error:', err); // Log error
@@ -61,9 +61,9 @@ const signup = async (req, res) => {
         }
 
         // Check if user with the same email already exists
-        const existingUser = await User.findOne({ email:email.toLowerCase() });
+        const existingUser = await User.findOne({ email: email.toLowerCase() });
         if (existingUser) {
-            return errorResponse(res,401,"User Already exist")
+            return errorResponse(res, 409, "User already exists"); // Change status code to 409 Conflict
         }
 
         // Hash the password
@@ -85,5 +85,6 @@ const signup = async (req, res) => {
         errorResponse(res, 500, 'Server error. Please try again.');
     }
 };
+
 
 module.exports = { login, signup }; // Export login and signup functions

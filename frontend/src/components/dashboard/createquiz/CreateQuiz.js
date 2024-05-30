@@ -1,49 +1,20 @@
 import React from 'react';
 import style from '../../../styles/dashboard/createquiz/CreateQuiz.module.css';
-// import { useQuizz } from '../../../hooks/useQuizz';
-import CreateQuestion from './CreateQuestion'; // Import CreateQuestion component
-import ShareQuiz from './ShareQuiz';
-import toast from 'react-hot-toast'
 import { useState } from 'react';
-import { setCreatePopup } from '../../../slices/popupSlice'; 
-import { useDispatch } from 'react-redux';
+import QuestionCard from './QuestionCard'; // Import CreateQuestion component
+import { useQuizz } from '../../../hooks/useQuizz';
+import ShareQuiz from './ShareQuiz'
 export default function CreateQuiz() {
-  const dispatch=useDispatch();
-  const [quizzData,setQuizzData]=useState({
-    "quizzName":"",
-    "quizzType":""
-});
-const [nextpage,setnextpage]=useState(0);
-const [quizId,setQuizId]=useState("");
-const quizzDataChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setQuizzData({
-      ...quizzData,
-      [name]: value
-    });
-  };
-  const onSubmitHandler=(event)=>{
-    if(!quizzData.quizzName){
-      toast.error("Enter Quizz Name..")
-    }else if(!quizzData.quizzType){
-      toast.error("Select Quiz Type..")
-    }
-    else{
-        setnextpage(nextpage+1)
-    }
-  }
-  const onCancelHandler=()=>{
-    dispatch(setCreatePopup(false));
-  }
-  const nextpageHandler=(quizId)=>{
-    setQuizId(quizId)
-    console.log(quizId);
-    setnextpage(nextpage+1);
-  }
-  return (
+const {quizzData,quizzDataChangeHandler,onSubmitHandler,onCancelHandler,nextpage,setNextpage}=useQuizz();
+const [quizzId,setQuizzId]=useState("");
+const nextpageHandle=(quizzId)=>{
+   setNextpage(nextpage+1)
+   setQuizzId(quizzId);
+}  
+return (
     <>
       {
-        nextpage===0&&(
+        nextpage===0&&
           <div className={style.popupContainer}>
             <div className={style.inputContainer}>
               <input placeholder='Quiz name' className={style.quizzName} name='quizzName' value={quizzData.quizzName} onChange={quizzDataChangeHandler} />
@@ -57,15 +28,16 @@ const quizzDataChangeHandler = (event) => {
               <button className={style.cancelButton} onClick={onCancelHandler}>Cancel</button>
               <button className={style.continueButton} onClick={onSubmitHandler}>Continue</button>
             </div>
-          </div>)
-        
+          </div>
+      }    
+      {
+        nextpage===1&&
+                     <QuestionCard quizzData={quizzData} nextpageHandle={nextpageHandle}/>
       }
       {
-         nextpage===1&&(<CreateQuestion quizzData={quizzData}  nextpageHandle={nextpageHandler}/>)
-      }  
-      {
-        nextpage===2&&(<ShareQuiz quizId={quizId}/>)
-      }     
+        nextpage===2&&
+                    <ShareQuiz quizId={quizzId}/>
+      }
     </>
   );
 }

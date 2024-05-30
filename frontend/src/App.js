@@ -1,4 +1,3 @@
-
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
@@ -10,13 +9,13 @@ import QuizsAnalytics from './components/dashboard/analytics/QuizsAnalytics';
 import QuizAnalytics from './components/dashboard/analytics/quizwiseanalytics/QuizAnalytics';
 import QuizTest from './pages/QuizTest';
 import Homepage from './pages/Homepage';
-import CreateQuiz from './components/dashboard/createquiz/CreateQuiz';
+import Error from './pages/Error';
 
 function App() {
-
   return (
     <div>
       <Routes>
+        {/* OpenRoute allows access to routes that don't require authentication */}
         <Route 
           path='/'
           element={
@@ -25,6 +24,8 @@ function App() {
             </OpenRoute>
           }
         />
+        
+        {/* PrivateRoute protects routes that require authentication */}
         <Route
           element={
             <PrivateRoute>
@@ -32,14 +33,19 @@ function App() {
             </PrivateRoute>
           }
         >
+          {/* Nested routes under /dashboard path */}
           <Route path="/dashboard" element={<TrendingQuiz />} />
           <Route path="/dashboard/quizzes" element={<QuizsAnalytics />} />
-          <Route path="/dashboard/quizzes/:quizId" element={<QuizAnalytics/>} />
+          <Route path="/dashboard/quizzes/:quizId" element={<QuizAnalytics />} />
         </Route>
-        <Route path="/quizTest/:quizId" element={<QuizTest/>}/>
+        
+        {/* Route for taking a quiz test */}
+        <Route path="/quizTest/:quizId" element={<QuizTest />} />
+        
+        {/* Route for handling 404 errors */}
+        <Route path='*' element={<Error />} />
       </Routes>
     </div>
-
   );
 }
 

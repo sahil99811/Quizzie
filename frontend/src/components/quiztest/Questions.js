@@ -2,30 +2,35 @@ import React, { useEffect, useState } from 'react';
 import style from '../../styles/quiztest/Questions.module.css';
 import OptionsCard from './OptionsCard';
 import Score from './Score';
-import { getQuizQuestions, submitQuiz } from '../../apis/quiz';
+import { getQuizQuestions} from '../../apis/quiz';
 import { useParams } from 'react-router-dom';
 
 export default function Questions() {
   const { quizId } = useParams();
-  const [quizData, setQuizData] = useState({});
-  const [qno, setQno] = useState(0);
-  const [selectedOptions, setSelectedOptions] = useState({});
-  const [timer, setTimer] = useState("OFF");
-  const timerSetting = "OFF";
+  const [quizData, setQuizData] = useState({}); // State to store quiz data
+  const [qno, setQno] = useState(0); // State to track current question number
+  const [selectedOptions, setSelectedOptions] = useState({}); // State to store selected options
+  const [timer, setTimer] = useState("OFF"); // State to manage timer
+  const [initialTimer,setInitialTimer]=useState("OFF")
+
+  // Function to fetch quiz questions
   const fetchQuestions = async () => {
     const result = await getQuizQuestions(quizId);
     if (result) {
       if(result?.timer!=="OFF")
-      setTimer(Number(result?.timer));
+      {
+        setTimer(Number(result?.timer));
+        setInitialTimer(Number(result?.timer))
+      }
       setQuizData(result);
-      
     }
   };
 
   useEffect(() => {
     fetchQuestions();
-  }, [ ]);
-  console.log(quizData);
+  }, [quizId ]);
+
+  // Effect to manage timer countdown
   useEffect(() => {
     if (timer!== "OFF") {
       const countdown = setInterval(() => {
@@ -33,18 +38,20 @@ export default function Questions() {
       }, 1000);
       return () => clearInterval(countdown);
     }
-  }, [qno]);
+  }, [timer]);
 
+  // Effect to automatically move to next question when timer reaches 0
   useEffect(() => {
-    if (timer === 0 && timerSetting !== "OFF") {
+    if (timer === 0) {
       nextQuestionHandler();
     }
   }, [timer]);
 
+  // Function to handle next question button click
   const nextQuestionHandler = () => {
     if (qno <= quizData?.questions?.length - 1) {
       setQno(qno + 1);
-      setTimer(10);
+      setTimer(initialTimer); // Reset timer to 10 seconds for each question
     } 
   };
 
@@ -55,7 +62,7 @@ export default function Questions() {
           <>
             <div className={style.totalQuestion}>
               <span className={style.questionNo}>{`${qno + 1}/${quizData?.questions?.length}`}</span>
-              {timerSetting !== "OFF" && (
+              {initialTimer !== "OFF" && (
                 <span className={style.timer}>{`00:${timer < 10 ? `0${timer}` : timer}s`}</span>
               )}
             </div>
