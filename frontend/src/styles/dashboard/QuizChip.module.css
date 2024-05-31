@@ -13,8 +13,9 @@ border-radius: 6px;
     display: flex;
     justify-content: space-between;
     color: rgba(71, 68, 68, 1);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.75rem;
+    font-family: "Poppins",sans-serif;
 }
 .upperContainer :first-child{
     width: fit-content; 
@@ -29,7 +30,7 @@ border-radius: 6px;
     justify-content: center;
 }
 .impressionContainer > p {
-    font-weight: 600;
+    font-weight: 500;
     font-size:0.7rem;
     color: rgba(255, 93, 1, 1);
 }
@@ -38,7 +39,7 @@ border-radius: 6px;
 }
 .container > span {
     color:rgba(96, 184, 75, 1) ;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.6rem;
 }
 

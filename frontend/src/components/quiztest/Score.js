@@ -49,7 +49,9 @@ export default function Score({ quizId, quizzType, selectedOptions, totalQz }) {
             </>
           ) : (
             // Display poll submission message if the quiz type is Poll and submission status is true
-            <p className={style.pollOutput}>Thank You For Participating in the Poll</p>
+              <div className={style.pollContainer}>
+                <span>Thank you for participating in the Poll</span>
+              </div>
           )
         )
       )}

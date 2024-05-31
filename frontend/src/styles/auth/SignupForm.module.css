@@ -30,6 +30,7 @@
     background-color: rgba(244, 244, 244, 1);
     outline: none;
     padding: 0.5rem;
+    font-family:"Poppins",sans-serif;
     font-size: 0.9rem;
     color: rgba(71, 68, 68, 1);
 }
@@ -38,7 +39,7 @@
   width: 12rem; 
   height:1.7rem; 
   font-size:1rem;
-  font-family: "Poppins";
+  font-family: "Poppins",sans-serif;
   font-weight: 600;
   border: none;
   border-radius: 8px;
@@ -53,9 +54,11 @@
 }
 
 .active::placeholder {
-    font-size: 1rem;
+    font-family:"Poppins",sans-serif;
+    font-size: 0.8rem;
     font-weight: 500;
     color: rgba(214, 0, 0, 1); 
+    
 }
 
 @media screen and (min-width:992px) {

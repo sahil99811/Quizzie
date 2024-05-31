@@ -27,6 +27,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    font-family: 'Poppins',sans-serif;
 }
 .questionsContainer{
     display: flex;
@@ -91,13 +92,16 @@
     padding-left: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    font-family: 'Poppins',sans-serif;
     font-size: 1.1rem;
+    font-weight: 500;
     outline: none;
 }
 .questionInput::placeholder{
-
+    font-family: 'Poppins',sans-serif;
     padding: auto;
     color:rgba(159, 159, 159, 1);
+    font-family: 'Poppins',sans-serif;
 }
 
 .optionTypeContainer{
@@ -106,17 +110,16 @@
     display: flex;
     justify-content: space-between;
     color: rgba(159, 159, 159, 1);
-    font-size: 1rem;
+    font-family: 'Poppins',sans-serif;
+    font-size:0.9rem;
     font-weight: 500;
 }
 .optiontype{
     display: flex;
-    gap:0.25rem
+    align-items: center;
+    gap:0.3rem
 }
-.optiontype>input{
-    width:16px;
-  
-}
+
 .radioOuterDiv {
     width: 19px;
     height: 19px;
@@ -157,7 +160,8 @@
 
 .timerContainer>span{
     color:rgba(159, 159, 159, 1) ;
-    font-size: 1.3rem;
+    font-family: 'Poppins',sans-serif;
+    font-size: 1rem;
     font-weight: 500;
     margin-top:1rem;
 }
@@ -172,6 +176,7 @@
     rgba(255, 255, 255, 1);
     
     box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.15);
+    font-family: 'Poppins',sans-serif;
     font-weight: 500;
     font-size: 1rem;
     cursor: pointer;
@@ -265,91 +270,49 @@
     cursor: pointer;
 }
 
-.imageContainer{
-    display: flex;
-    flex-direction: column;
-
-    gap: 0.6rem;
-}
-.image{
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-}
-
-
-.inputImage{
-    width: 230px;
-    height:35px;
-    background-color: rgba(255, 255, 255, 1);
-    color:rgba(159, 159, 159, 1) ;
-    font-weight: 500;
-    font-size: 1rem;
-    padding-left: 0.6rem;
-    padding: auto;
-    outline: none;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 0 25px 0px rgba(0, 0, 0, 0.15);
-}
-.image>img{
-    height:18px;
-}
-
-.textimageContainer{
-    display: flex;
-    flex-direction: column;
-
-    gap: 0.6rem;
-}
-.textimage{
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-}
-
-
-.textimageInput{
-    width: 130px;
-    height:35px;
-    background-color: rgba(255, 255, 255, 1);
-    color:rgba(159, 159, 159, 1) ;
-    font-weight: 500;
-    font-size: 1rem;
-    padding-left: 0.6rem;
-    padding: auto;
-    outline: none;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 0 25px 0px rgba(0, 0, 0, 0.15);
-}
-.textimageUrl{
-    width: 180px;
-    height:35px;
-    background-color: rgba(255, 255, 255, 1);
-    color:rgba(159, 159, 159, 1) ;
-    font-weight: 500;
-    font-size: 1rem;
-    padding-left: 0.6rem;
-    padding: auto;
-    outline: none;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 0 25px 0px rgba(0, 0, 0, 0.15);
-}
-.textimage>img{
-    height:18px;
-}
-
 .timerContainer > .activeTimer {
     background-color: rgba(214, 0, 0, 1);
     color: rgba(255, 255, 255, 1);
 }
+@media screen and (min-width:1200px){
+   
+    .questionInfo{
+        gap: 2rem;
+        padding-top: 3rem;
+    }
 
-.activeSelectedOptions{
-    background-color:rgba(96, 184, 75, 1);
-    color: rgb(255, 255, 255,1);
-}
-.activeSelectedOptions::placeholder{
-    color: rgb(255, 255, 255,1);
+    .questionContainer{
+        width: 50px;
+        height: 50px;
+    }
+    .questionInput{
+        font-family: 'Poppins',sans-serif;
+        font-size: 1.2rem;
+    }
+    .optionTypeContainer{
+     width: 95%;
+     font-size: 1.2rem;
+     
+    }
+    .timerContainer{
+        margin-top: 3rem;
+        gap: 1rem;
+    }
+    .timerContainer>span{
+        font-size: 1.2rem;
+    }
+    .timerContainer>button{
+        font-size: 1.2rem;
+        width:90px;
+        height:35px;
+    }
+    .buttonContainer{
+        margin-top:1rem;
+    }
+    .buttonContainer>button{
+        width:250px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
 }

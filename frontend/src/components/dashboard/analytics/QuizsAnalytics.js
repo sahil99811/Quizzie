@@ -24,6 +24,7 @@ export default function QuizsAnalytics() {
   const [deleteQuizId, setDeleteQuizId] = useState("");
   const { token } = useSelector(state => state.auth);
   const [quizzs, setQuizzs] = useState([]);
+  const [loading,setLoading]=useState(false);
   const [quizzData,setQuizzData]=useState({});
   const location = useLocation();
   
@@ -71,8 +72,10 @@ export default function QuizsAnalytics() {
 
   // Fetch quiz analysis data
   const fetchQuizzAnalysis = async () => {
+    setLoading(true)
     const result = await getQuizzsAnalysis(token,dispatch);
     setQuizzs(result?.data?.quizzs);
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -83,7 +86,9 @@ export default function QuizsAnalytics() {
 
   return (
     <>
-      {/* Quiz Analysis Container */}
+     {loading&&<p style={{ "position": "absolute", "marginTop": "1rem", "marginLeft":"30%", "fontSize": "2rem" }}>Loading...</p>}
+     {
+      !loading&&
       <div className={`${style.container} ${deletePopup && style.active}`}>
         <h2>Quiz Analysis</h2>
         <div className={style.tableContainer}>
@@ -124,6 +129,7 @@ export default function QuizsAnalytics() {
           )}
         </div>
       </div>
+     }
 
       {/* Delete Confirmation Popup */}
       {deletePopup && (
