@@ -36,7 +36,7 @@ export default function Score({ quizId, quizzType, selectedOptions, totalQz }) {
     <div className={style.container}>
       {loading ? (
         // Show loading message if data is loading
-        <p>Loading...</p>
+        <p>Submitting Quiz...</p>
       ) : (
         // Display appropriate content based on quiz type and submission status
         submittedAnswered && (
