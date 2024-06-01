@@ -15,6 +15,7 @@
     font-size: 1.7rem;
     font-family: "Jomhuria",sans-serif;
     color: rgba(71, 68, 68, 1);
+    font-weight: 400;
 }
 .buttonContainer{
     width: 100%;
@@ -29,7 +30,7 @@
     padding-left: 1.2rem;
     border: none;
     background-color:inherit ;
-    font-family: "Jomhuria",sans-serif;
+    font-family: "Poppins",sans-serif;
     color:rgba(71, 68, 68, 1);
     font-size:1.1rem;
     font-weight: 600;
@@ -59,7 +60,7 @@
 .logoutButton{
     border: none;
     background-color: inherit;
-    font-family: "Jomhuria",sans-serif;
+    font-family: "Poppins",sans-serif;
     color:rgba(71, 68, 68, 1);
     font-size: 1.2rem;
     font-weight: 600;
@@ -72,10 +73,10 @@
         padding-bottom:1rem;
     }
     .heading{
-        font-size: 2.1rem;
+        font-size:4rem;
     }
     .buttonContainer{
-        gap:1.3rem;
+        gap:1.5rem;
     }
     .button{
         height:2.2rem;
@@ -104,10 +105,10 @@
         width: 15%;
     }
     .heading{
-        font-size: 2.4rem;
+        font-size:5rem;
     }
     .buttonContainer{
-        gap:1.4rem;
+        gap:2.5rem;
     }
     .button{
         height:2.5rem;

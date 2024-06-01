@@ -33,6 +33,7 @@
     font-family:"Poppins",sans-serif;
     font-size: 0.9rem;
     color: rgba(71, 68, 68, 1);
+    
 }
 
 .button{
@@ -90,20 +91,20 @@
     }
     .label
     {   
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         width: 40%;
     }
     .input{
         width:40%;
         height: 2.4rem;
-        font-size: 1.3rem;
+        font-size: 1.4rem;
        
     }
     
     .button{
       width: 16rem; 
       height:2.2rem; 
-      font-size:1.5rem;
+      font-size:1.4rem;
 
     }
  }

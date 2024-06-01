@@ -68,7 +68,7 @@ export default function TrendingQuiz() {
   
           {/* Lower section displaying trending quizzes */}
           <section className={style.lowerSection}>
-            <h3>Trending Quizzes</h3>
+            <h3>Trending Quizs</h3>
             <div className={style.quizContainer}>
               {trendingQuiz?.trendingQuizzes?.map(quiz => (
                 <QuizChip key={quiz._id} quiz={quiz} />

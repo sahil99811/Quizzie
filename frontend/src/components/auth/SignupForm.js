@@ -69,7 +69,7 @@ export default function SignupForm({ setForm }) {
         setSignupData({ ...signupData, email: "" });
     }
     if (errors.password && signupData.password !== "") {
-        setSignupData({ ...signupData, password: "" });
+        setSignupData({ ...signupData, password: ""});
     }
     if (errors.confirmpassword && signupData.confirmpassword !== "") {
         setSignupData({ ...signupData, confirmpassword: "" });

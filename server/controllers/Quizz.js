@@ -201,7 +201,6 @@ exports.updateQuiz = async (req, res) => {
         if (!questions||!timer) {
             return errorResponse(res, 400, 'all field is required');
         }
-        console.log(questions[0].options,timer);
         // Fetch the quiz to ensure it exists and belongs to the user
         const quiz = await Quizz.findOne({ _id: quizId, createdBy: id });
         if (!quiz) {

@@ -1,7 +1,7 @@
 .container{
 display: flex;
 flex-direction: column;
-gap: 5px;
+gap: 1px;
 padding:3px 4px;
 width:120px;
 height: 45px;
@@ -45,7 +45,6 @@ border-radius: 6px;
 
 @media screen and (min-width:992px) {
     .container{
-        gap: 7px;
         padding:4px 6px;
         width:140px;
         height: 50px;
@@ -73,10 +72,9 @@ border-radius: 6px;
  
  @media screen and (min-width:1180px){
     .container{
-        gap: 7px;
         padding:4px 6px;
         width:165px;
-        height: 60px;
+        height: 62px;
         }
         .upperContainer{
             font-size: 1.2rem;

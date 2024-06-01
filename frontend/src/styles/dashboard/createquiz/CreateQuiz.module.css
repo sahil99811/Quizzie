@@ -1,7 +1,7 @@
 .popupContainer {
     position: fixed;
-    width: 500px;
-    height: 250px;
+    width: 600px;
+    height: 300px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -12,27 +12,36 @@
     display: flex;
     flex-direction: column;
     gap:2rem;
+    
 }
 .inputContainer{
     width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
-    margin-top: 3rem;
+    gap: 1.3rem;
+    margin-top: 3.5rem;
+    
 }
 .quizzName{
     width: 100%;
-    height: 2.8rem;
+    height: 3.8rem;
     outline: none;
     border: none;
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 0 25px 6px rgba(0, 0, 0, 0.15);
     color: rgba(159, 159, 159, 1);
-    font-size: 1.3rem;
-    font-weight: 400;
+    font-family: 'Poppins',sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
     padding: 1rem;
+    
+}
+.quizzName::placeholder{
+    color: rgba(159, 159, 159, 1);
+    font-family: 'Poppins',sans-serif;
+    
 }
 .choiceContainer{
     display: flex;
@@ -40,18 +49,21 @@
     width: 95%;
     margin:auto;
     color: rgba(159, 159, 159, 1);
+   
 }
 .choiceContainer>span{
-    font-size: 1.3rem;
+    font-family: 'Poppins',sans-serif;
+    font-size: 1.25rem;
     font-weight: 500;
    
 }
 .qaChoice{
-    width:6rem;
-    height:2rem;
+    width:8rem;
+    height:2.1rem;
     border: none;
     background-color: rgba(255, 255, 255, 1);
     box-shadow:0 0 25px 4px rgba(0, 0, 0, 0.15);
+    font-family: 'Poppins',sans-serif;
     font-size: 1rem;
     font-weight: 500;
     border-radius: 8px;
@@ -59,11 +71,12 @@
     cursor: pointer;
 }
 .pollChoice{
-    width:6rem;
-    height:2rem;
+    width:8rem;
+    height:2.1rem;
     border: none;
     background-color: rgba(255, 255, 255, 1);
     box-shadow:0 0 25px 4px rgba(0, 0, 0, 0.15);
+    font-family: 'Poppins',sans-serif;
     font-size: 1rem;
     font-weight: 500;
     border-radius: 8px;
@@ -71,32 +84,36 @@
     cursor: pointer;
 }
 .buttonContainer{
-    width: 75%;
+    width: 76%;
     margin: 0 auto;
+    margin-top: 1rem;
     display: flex;
     justify-content: space-between;
+    
 }
 .cancelButton{
-    width: 10rem;
-    height: 2rem;
+    width: 12.5rem;
+    height: 2.2rem;
     border: none;
     background-color: rgba(255, 255, 255, 1);
     color: rgba(71, 68, 68, 1);
     box-shadow:0 0 15px 3px rgba(0, 0, 0, 0.25);
     border-radius: 7px;
+    font-family: 'Poppins',sans-serif;
     font-size: 1rem;
-    font-size: 500;
+    font-weight: 600;
     cursor: pointer;
 }
 .continueButton{
-    width: 10rem;
-    height: 2rem;
+    width: 12.5rem;
+    height: 2.2rem;
     border: none;
     background-color: rgba(96, 184, 75, 1);
     color:rgba(255, 255, 255, 1);
     border-radius: 7px;
+    font-family: 'Poppins',sans-serif;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
 }
 .active{

@@ -6,6 +6,9 @@
 }
 .container>h2{
     font-size: 1.4rem;
+    font-family: 'Poppins',sans-serif;
+    color: 
+    rgba(0, 0, 0, 1);
 }
 .optionContainer{
     display: flex;
@@ -36,7 +39,7 @@
     
 }
 .answerOption>span{
-    font-size:0.6rem;
+    font-size:0.55rem;
     font-weight: 600;
     color:rgba(71, 68, 68, 1) ;
 }
@@ -61,7 +64,7 @@
         font-size: 1.4rem;
     }
     .answerOption>span{
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
     .border{
         width: 39rem;
@@ -88,7 +91,7 @@
         font-size: 2.2rem;
     }
     .answerOption>span{
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
     .border{
         width:49.2rem;
