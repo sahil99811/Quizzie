@@ -65,7 +65,7 @@ export default function Questions() {
   };
 
   if (loading) {
-    return <div className={style.container}><p style={{margin:"auto auto",fontSize:"2.5rem"}}>Loading Quiz Questions...</p></div>;
+    return <div className={style.container}><p className={style.loading}>Loading Quiz Questions...</p></div>;
   }
 
 

@@ -61,7 +61,8 @@
 .loading{
     margin: auto auto;
     font-family: 'Poppins',sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 @media only screen and (min-width: 768px) {
@@ -93,7 +94,7 @@
     }
     .loading{
        
-        font-size: 1.4rem;
+        font-size:2rem;
     }
 }
 
@@ -127,7 +128,7 @@
     }
     .loading{
     
-        font-size: 1.8rem;
+        font-size: 2.4rem;
     }
 }
 
@@ -160,6 +161,6 @@
     }
     .loading{
         
-        font-size: 2.2rem;
+        font-size: 2.8rem;
     }
 }
