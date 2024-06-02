@@ -58,6 +58,11 @@
     background-color: rgba(96, 184, 75, 1);
     cursor: pointer;
 }
+.loading{
+    margin: auto auto;
+    font-family: 'Poppins',sans-serif;
+    font-size: 1rem;
+}
 
 @media only screen and (min-width: 768px) {
     .container {
@@ -85,6 +90,10 @@
         height: 2.5rem;
         font-size: 1.5rem;
 
+    }
+    .loading{
+       
+        font-size: 1.4rem;
     }
 }
 
@@ -116,6 +125,10 @@
         font-size: 1.4rem;
 
     }
+    .loading{
+    
+        font-size: 1.8rem;
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -144,5 +157,9 @@
         width: 18rem;
         height: 2.8rem;
         font-size: 1.7rem;
+    }
+    .loading{
+        
+        font-size: 2.2rem;
     }
 }

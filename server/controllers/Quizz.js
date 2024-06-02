@@ -115,13 +115,13 @@ exports.getQuizzAnalysis = async (req, res) => {
     try {
         const { id } = req.user;
         const { quizId } = req.params;
+        // Check if quizId is a valid MongoDB ObjectId
+        if (!mongoose.Types.ObjectId.isValid(quizId)) {
+            return res.status(404).json({ success: false, message: 'Invalid quiz ID' });
+        }
         const quizz = await Quizz.findOne({ _id:quizId, createdBy: id })
             .select("questions quizzType quizzName impression createdAt")
             .populate({ path: "questions", select: "selectedOptions correctAnswered incorrectAnswered description options" });
-        if (!quizz) {
-            return errorResponse(res, 404, 'Invalid quiz id');
-        }
-
         // Send success response
         return res.status(200).json({
             success: true,
@@ -140,7 +140,6 @@ exports.deleteQuiz = async (req, res) => {
     try {
         const { id } = req.user;
         const { quizId } = req.params;
-        console.log(quizId);
 
         const quiz = await Quizz.findOne({ _id: quizId, createdBy: id }).populate('questions');
         if (!quiz) {
@@ -167,7 +166,11 @@ exports.getQuizDetails = async (req, res) => {
     try {
         const { id } = req.user;
         const { quizId } = req.params;
-
+        
+        // Check if quizId is a valid MongoDB ObjectId
+        if (!mongoose.Types.ObjectId.isValid(quizId)) {
+            return res.status(404).json({ success: false, message: 'Invalid quiz ID' });
+        }
         // Query the quiz details
         const quizDetails = await Quizz.findOne({ createdBy: id, _id: quizId })
             .select('questions quizzType timer')
@@ -269,7 +272,10 @@ exports.quizTest = async (req, res) => {
     try {
         const { quizId } = req.params;
 
-
+        // Check if quizId is a valid MongoDB ObjectId
+        if (!mongoose.Types.ObjectId.isValid(quizId)) {
+            return res.status(404).json({ success: false, message: 'Invalid quiz ID' });
+        }
         // Update quiz impression
         const quiz = await Quizz.findByIdAndUpdate(quizId, { $inc: { impression: 1 } });
         if (!quiz) {

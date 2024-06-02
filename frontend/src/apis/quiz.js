@@ -108,6 +108,9 @@ export const getQuizQuestions = async (quizId, dispatch) => {
         if (result.status === 200) {
             toast.success(result?.data?.message); // Show success toast
             return result?.data?.questions; // Return the questions if status is 200
+        } else if(result.status===404){
+            toast.error(result?.data?.message); // Show error toast
+            return false; 
         } 
         toast.error(result?.data?.message); // Show error toast if quiz is not found
         return false;
