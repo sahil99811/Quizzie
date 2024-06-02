@@ -170,12 +170,15 @@ export const useQuestion = (quizzData) => {
             }
         }
     };
-    const editQuiz=async (quizzData)=>{
-      const isValid=checkAllFields(quizzData?.quizzType);
-      if (isValid) {
-       const result=await updateQuiz(quizzData?._id,questionsData,timer,token,dispatch)
-      }
-    }
+    // Function to edit an existing quiz
+    const editQuiz = async (quizzData) => {          
+       const isValid = checkAllFields(quizzData?.quizzType);
+       if (!isValid) return;
+        const result = await updateQuiz(quizzData?._id, questionsData, timer, token, dispatch);
+        if (result) {
+            dispatch(setEditPopup(false));
+        }
+    };
    // Function to handle cancellation of quizz creation
     const onCancelHandler=()=>{
     // Dispatching action to set create popup state to false
