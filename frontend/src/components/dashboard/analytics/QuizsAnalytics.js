@@ -90,7 +90,9 @@ export default function QuizsAnalytics() {
      {
       !loading&&
       <div className={`${style.container} ${deletePopup && style.active}`}>
-        <h2>Quiz Analysis</h2>
+        <div className={style.headingContainer}>
+         <h2>Quiz Analysis</h2>
+        </div>
         <div className={style.tableContainer}>
           {/* Table displaying quiz data */}
           {quizzs?.length !== 0 && (
