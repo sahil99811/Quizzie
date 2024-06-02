@@ -33,7 +33,6 @@ exports.createQuizz = async (req, res) => {
             });
             allQuestions.push(questionData._id);
         }
-
         // Create the quiz with the created questions
         const quizzData = await Quizz.create({
             quizzName,
@@ -221,6 +220,7 @@ exports.updateQuiz = async (req, res) => {
         const allQuestions = [];
         // Validate and update each question
         for (const question of questions) {
+           
             if (!question._id) {
                 // Create new question
                 const newQuestion = await Question.create({
@@ -230,10 +230,11 @@ exports.updateQuiz = async (req, res) => {
                     correctOption: question.correctOption,
                     createdBy: id // Associate the question with the user
                 });
+               
                 allQuestions.push(newQuestion._id);
             } else {
                 // Update existing question
-                const updatedQuestion = await Question.findOneAndUpdate(
+                const updatedQuestion = await Question.findByIdAndUpdate(
                     { _id: question._id, createdBy: id },
                     {
                         description: question.description,
@@ -243,6 +244,7 @@ exports.updateQuiz = async (req, res) => {
                     },
                     { new: true } // Return the updated document
                 );
+                
                 allQuestions.push(question._id);
             }
         }
@@ -255,7 +257,7 @@ exports.updateQuiz = async (req, res) => {
         // Send success response
         res.status(200).json({ success: true, message: 'Quiz updated successfully' });
     } catch (error) {
-        console.error(error);
+        console.error('Error updating quiz:', error);
         errorResponse(res, 500, 'Internal server error');
     }
 };

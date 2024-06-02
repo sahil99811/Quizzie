@@ -1,25 +1,5 @@
 const mongoose = require('mongoose'); // Import mongoose for database interactions
 
-// Define the sub-schema for the options
-const optionSchema = new mongoose.Schema({
-    text: {
-        type: String,
-        required: function() {
-            // Require text field if optionType is 'textimage' or 'text'
-            return this.optionType === 'textImage' || this.optionType === 'text';
-        },
-        default: "" // Default value for text field
-    },
-    imageurl: {
-        type: String,
-        required: function() {
-            // Require imageurl field if optionType is 'textimage' or 'image'
-            return this.optionType === 'textImage' || this.optionType === 'image';
-        },
-        default: "" // Default value for imageurl field
-    }
-});
-
 // Define the main schema for the question
 const questionSchema = new mongoose.Schema({
     description: {
@@ -32,7 +12,7 @@ const questionSchema = new mongoose.Schema({
         required: true // optionType is required
     },
     options: {
-        type: [optionSchema], // Array of options using the sub-schema
+        type:Array, // Array of options using the sub-schema
         validate: {
             validator: function(lth) {
                 // Validate that the number of options is between 2 and 4

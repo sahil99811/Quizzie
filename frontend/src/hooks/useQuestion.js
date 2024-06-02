@@ -61,7 +61,7 @@ export const useQuestion = (quizzData) => {
     // Function to add a new question
     const addQuestionHandler = () => {
         setQuestionsData([...questionsData, { description: "", optionType: "text", options: [{ text: "", imageurl: "" }, { text: "", imageurl: "" }], correctOption: "" }]);
-        setselectedQuestion(questionsData.length); // Set the new question as selected
+        setselectedQuestion(0); // Set the 1st question as selected
     };
 
     // Function to remove a question
@@ -202,7 +202,7 @@ export const useQuestion = (quizzData) => {
                     correctOption: ""
                 }
             ]);
-            setTimer(quizzData?.timer);
+            setTimer(quizzData?.timer||"OFF");
             setOriginalData({
                 questions: quizzData?.questions || [],
                 timer: quizzData?.timer 
