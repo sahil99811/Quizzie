@@ -195,47 +195,64 @@ exports.updateQuiz = async (req, res) => {
     try {
         const { id } = req.user; // User ID from authentication middleware
         const { quizId } = req.params; // Quiz ID from URL params
-        const { questions ,timer} = req.body; // Questions array from request body
+        const { questions, timer } = req.body; // Questions array and timer from request body
 
         // Check if required fields are missing
-        if (!questions||!timer) {
-            return errorResponse(res, 400, 'all field is required');
+        if (!questions || !timer) {
+            return errorResponse(res, 400, 'All fields are required');
         }
+
         // Fetch the quiz to ensure it exists and belongs to the user
-        const quiz = await Quizz.findOne({ _id: quizId, createdBy: id });
+        const quiz = await Quizz.findOne({ _id: quizId, createdBy: id }).select("questions");
         if (!quiz) {
             return res.status(404).json({ success: false, message: 'Quiz not found' });
         }
+
+        // Extract existing question IDs from the quiz
+        const existingQuestionIds = quiz.questions.map(q => q.toString());
+        // Extract new question IDs from the request body
+        const newQuestionIds = questions.map(q => q._id).filter(id => id);
+
+        // Find questions to delete (existing ones not present in new ones)
+        const questionsToDelete = existingQuestionIds.filter(id => !newQuestionIds.includes(id));
+
+        // Delete questions that are no longer part of the quiz
+        await Question.deleteMany({_id:{$in: questionsToDelete}});
+
         const allQuestions = [];
         // Validate and update each question
         for (const question of questions) {
-            console.log(question._id);
-            const qz=await Question.findByIdAndUpdate(
-                { _id:new mongoose.Types.ObjectId(question._id), createdBy: id },
-                {
+            if (!question._id) {
+                // Create new question
+                const newQuestion = await Question.create({
                     description: question.description,
                     optionType: question.optionType,
                     options: question.options,
                     correctOption: question.correctOption,
-                },
-                { new: true } // This option returns the updated document
-            );
-            if(!qz){
-                const newQz=await  Question.create({
-                    description: question.description,
-                    optionType: question.optionType,
-                    options: question.options,
-                    correctOption:question.correctOption,
+                    createdBy: id // Associate the question with the user
                 });
-                allQuestions.push(newQz._id);
-            }
-            else{
-                allQuestions.push(qz._id);
+                allQuestions.push(newQuestion._id);
+            } else {
+                // Update existing question
+                const updatedQuestion = await Question.findOneAndUpdate(
+                    { _id: question._id, createdBy: id },
+                    {
+                        description: question.description,
+                        optionType: question.optionType,
+                        options: question.options,
+                        correctOption: question.correctOption,
+                    },
+                    { new: true } // Return the updated document
+                );
+                allQuestions.push(question._id);
             }
         }
-        quiz.questions = allQuestions; 
-        quiz.timer=timer
+
+        // Update quiz with new questions and timer
+        quiz.questions = allQuestions;
+        quiz.timer = timer;
         await quiz.save();
+
         // Send success response
         res.status(200).json({ success: true, message: 'Quiz updated successfully' });
     } catch (error) {
