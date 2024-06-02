@@ -26,11 +26,7 @@ export const useQuestion = (quizzData) => {
     const [timer, setTimer] = useState("OFF");
     // State for managing selected question index
     const [selectedQuestion, setselectedQuestion] = useState(0);
-   // State for storing original quiz data
-    const [originalData, setOriginalData] = useState({
-      questions: [],
-      timer: "OFF"
-    });
+ 
     // Function to add a new option to the selected question
     const addOption = () => {
         setQuestionsData(prevQuestionsData => {
@@ -158,7 +154,8 @@ export const useQuestion = (quizzData) => {
     };
     
     
-  
+   
+      
     // Function to create a new quiz
     const createQuiz = async (quizzData, nextpageHandle) => {
         const isValid = checkAllFields(quizzData?.quizzType);
@@ -174,8 +171,9 @@ export const useQuestion = (quizzData) => {
 
     // Function to edit an existing quiz 
     const editQuiz = async (quizzData) => {          
-       const isValid = checkAllFields(quizzData?.quizzType);
+        const isValid = checkAllFields(quizzData?.quizzType);
         if (!isValid) return;
+       
         const result = await updateQuiz(quizzData?._id, questionsData, timer, token, dispatch);
         if (result) {
             dispatch(setEditPopup(false));
@@ -203,10 +201,7 @@ export const useQuestion = (quizzData) => {
                 }
             ]);
             setTimer(quizzData?.timer||"OFF");
-            setOriginalData({
-                questions: quizzData?.questions || [],
-                timer: quizzData?.timer 
-            });
+          
         }
     }, [quizzData]);
 

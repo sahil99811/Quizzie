@@ -225,7 +225,7 @@ export const quizDetails = async (quizzId, token, dispatch) => {
 
         if (result?.status === 200) {
             toast.success("Quiz Details Fetch Sucessfully"); // Show success toast
-            console.log(result);
+           
             return result; // Return the result if status is 200
         } else if (result?.status === 404) {
             toast.error(result?.data?.message);  // Show error toast if quiz is not found
