@@ -172,10 +172,10 @@ export const useQuestion = (quizzData) => {
 
     };
 
-     // Function to edit an existing quiz
+    // Function to edit an existing quiz 
     const editQuiz = async (quizzData) => {          
        const isValid = checkAllFields(quizzData?.quizzType);
-       if (!isValid) return;
+        if (!isValid) return;
         const result = await updateQuiz(quizzData?._id, questionsData, timer, token, dispatch);
         if (result) {
             dispatch(setEditPopup(false));
@@ -188,7 +188,7 @@ export const useQuestion = (quizzData) => {
         dispatch(setEditPopup(false)); // Hide edit quiz popup
     };
 
-    // Effect to initialize question data from quizzData prop
+
     useEffect(() => {
         if (quizzData) {
             setQuestionsData(quizzData?.questions || [

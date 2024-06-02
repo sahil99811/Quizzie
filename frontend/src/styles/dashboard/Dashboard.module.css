@@ -13,8 +13,16 @@
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.81);
 }
+
 @media screen and (min-width: 1200px) {
     .outletContainer {
         width: 85%;
+    }
+}
+
+@media screen and (min-width:1200px){
+    .outletContainer{
+        width:85%;
+       
     }
 }
