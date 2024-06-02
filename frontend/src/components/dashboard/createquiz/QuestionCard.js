@@ -69,10 +69,8 @@ const editQuizHandler=()=>{
           </div>
         </div>
       </section>
-      <section className={style.selectOption} style={quizzData.quizzType === "Poll" ? {width: "calc(100% - 10rem)"} : {}}>
-        <div className={style.optionContainer}>
+      <section className={style.selectOption} style={quizzData.quizzType === "Poll" ? {width: "calc(100% - 23%)"} : {}}>
           <OptionsCard optionType={questionsData[selectedQuestion]?.optionType} questionsData={questionsData} selectedQuestion={selectedQuestion} removeOption={removeOption} addOption={addOption} handleCorrectOptionChange={handleCorrectOptionChange} handleOptionValueChange={handleOptionValueChange} quizzType={quizzData?.quizzType}/>
-        </div>
         {
           quizzData?.quizzType==="Q&A"&&<div className={style.timerContainer}>
           <span>Timer</span>
