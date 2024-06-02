@@ -1,120 +1,122 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import {createQuizApi} from '../apis/quiz'
-import {useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import {setCreatePopup, setEditPopup} from '../slices/popupSlice'
-import { updateQuiz } from "../apis/quiz";
+import { createQuizApi, updateQuiz } from '../apis/quiz'; // Importing APIs
+import { useSelector, useDispatch } from "react-redux"; // Importing Redux hooks
+import { setCreatePopup, setEditPopup } from '../slices/popupSlice'; // Importing Redux actions
+
+// Custom hook for managing quiz questions
 export const useQuestion = (quizzData) => {
+    const dispatch = useDispatch(); // Dispatch function from Redux
+    const { token } = useSelector((state) => state.auth); // Accessing token from auth state
 
-    const dispatch=useDispatch()
-    const {token}=useSelector((state)=>state.auth);
+    // State for managing questions data
+    const [questionsData, setQuestionsData] = useState([
+        {
+            description: "",
+            optionType: "text",
+            options: [
+                { text: "", imageurl: "" },
+                { text: "", imageurl: "" }
+            ],
+            correctOption: ""
+        }
+    ]);
 
-    const [questionsData, setQuestionsData] = useState( [
-      {
-          description: "",
-          optionType: "text",
-          options: [
-              { text: "", imageurl: "" },
-              { text: "", imageurl: "" }
-          ],
-          correctOption: ""
-      }
-  ]);
-  
+    // State for managing timer
     const [timer, setTimer] = useState("OFF");
-  
-    const [selectedQuestion,setselectedQuestion]=useState(0);
-
+    // State for managing selected question index
+    const [selectedQuestion, setselectedQuestion] = useState(0);
+   // State for storing original quiz data
+    const [originalData, setOriginalData] = useState({
+      questions: [],
+      timer: "OFF"
+    });
+    // Function to add a new option to the selected question
     const addOption = () => {
         setQuestionsData(prevQuestionsData => {
-          const updatedQuestionsData = [...prevQuestionsData];
-          updatedQuestionsData[selectedQuestion].options.push({ text:"",imageurl:""});
-          return updatedQuestionsData;
+            const updatedQuestionsData = [...prevQuestionsData];
+            updatedQuestionsData[selectedQuestion].options.push({ text: "", imageurl: "" });
+            return updatedQuestionsData;
         });
-      };
-      const removeOption = (index) => {
+    };
+
+    // Function to remove an option from the selected question
+    const removeOption = (index) => {
         setQuestionsData(prevQuestionsData => {
-          const updatedQuestionsData = [...prevQuestionsData];
-          updatedQuestionsData[selectedQuestion].options.splice(index,1);
-      
-          if (index===updatedQuestionsData[selectedQuestion].correctOption) {
-            updatedQuestionsData[selectedQuestion].correctOption = "";
-          }
-          
-          return updatedQuestionsData;
+            const updatedQuestionsData = [...prevQuestionsData];
+            updatedQuestionsData[selectedQuestion].options.splice(index, 1);
+            // Reset correct option if it was the one removed
+            if (index === updatedQuestionsData[selectedQuestion].correctOption) {
+                updatedQuestionsData[selectedQuestion].correctOption = "";
+            }
+            return updatedQuestionsData;
         });
-      };
-  
-      
-   
- 
+    };
+
+    // Function to handle timer change
     const handleTimerChange = (time) => {
         setTimer(time);
-      };
-    
-    
-     const addQuestionHandler=()=>{
-      setQuestionsData([...questionsData, { description:"",optionType:"text",options: [{ text: "",imageurl:"" }, {text: "" ,imageUrl:""}], correctOption:""}]);
-      setselectedQuestion(0);
-      
-     }
-    
-    
-     const removeQuestionHandler = (index) => {
-     
-    
-      const updatedQuestions = questionsData.filter((_,ind) => ind !== index);
-      setQuestionsData(updatedQuestions);
-      setselectedQuestion(0);
-    }
-    
-    
-    
-    
-     const changeQuestionHandler=(index)=>{
+    };
+
+    // Function to add a new question
+    const addQuestionHandler = () => {
+        setQuestionsData([...questionsData, { description: "", optionType: "text", options: [{ text: "", imageurl: "" }, { text: "", imageurl: "" }], correctOption: "" }]);
+        setselectedQuestion(questionsData.length); // Set the new question as selected
+    };
+
+    // Function to remove a question
+    const removeQuestionHandler = (index) => {
+        const updatedQuestions = questionsData.filter((_, ind) => ind !== index);
+        setQuestionsData(updatedQuestions);
+        setselectedQuestion(0); // Reset to the first question
+    };
+
+    // Function to change the selected question
+    const changeQuestionHandler = (index) => {
         setselectedQuestion(index);
-     }
-     const handleOptionTypeChange = (event) => {
-      const { dataset } = event.currentTarget;
-      const { name, value } = dataset;
-          setQuestionsData(prevQuestionsData => {
-          const updatedQuestionsData = [...prevQuestionsData];
-          updatedQuestionsData[selectedQuestion][name] = value;
-          return updatedQuestionsData;
+    };
+
+    // Function to handle change in option type
+    const handleOptionTypeChange = (event) => {
+        const { dataset } = event.currentTarget;
+        const { name, value } = dataset;
+        setQuestionsData(prevQuestionsData => {
+            const updatedQuestionsData = [...prevQuestionsData];
+            updatedQuestionsData[selectedQuestion][name] = value;
+            return updatedQuestionsData;
         });
     };
-    
-    //for Q&A correct option change
-    const handleCorrectOptionChange = (event,index) => {
-      setQuestionsData(prevQuestionsData => {
-        const updatedQuestionsData = [...prevQuestionsData];
-        updatedQuestionsData[selectedQuestion].correctOption =Number(index);
-        return updatedQuestionsData;
-      });
+
+    // Function to handle change in correct option for Q&A type
+    const handleCorrectOptionChange = (event, index) => {
+        setQuestionsData(prevQuestionsData => {
+            const updatedQuestionsData = [...prevQuestionsData];
+            updatedQuestionsData[selectedQuestion].correctOption = Number(index);
+            return updatedQuestionsData;
+        });
     };
-    
-    //for selected optionType options value change 
-    const handleOptionValueChange=(event,index)=>{
-      const {value,name}=event.target;
-    
-      setQuestionsData(prevQuestionsData=>{
-        const updatedQuestionsData=[...prevQuestionsData];
-        updatedQuestionsData[selectedQuestion].options[index][name]=value;
-        return updatedQuestionsData;
-      })
-    }
-    
-    //for question description value change
-    
-    const onChangeDescription=(event)=>{
-      const {value,name}=event.target;
-      setQuestionsData(prevQuestionsData=>{
-        const updatedQuestionsData=[...prevQuestionsData];
-        updatedQuestionsData[selectedQuestion].description=value;
-        return updatedQuestionsData;
-      })
-    }
+
+    // Function to handle change in option value
+    const handleOptionValueChange = (event, index) => {
+        const { value, name } = event.target;
+        setQuestionsData(prevQuestionsData => {
+            const updatedQuestionsData = [...prevQuestionsData];
+            updatedQuestionsData[selectedQuestion].options[index][name] = value;
+            return updatedQuestionsData;
+        });
+    };
+
+    // Function to handle change in question description
+    const onChangeDescription = (event) => {
+        const { value } = event.target;
+        setQuestionsData(prevQuestionsData => {
+            const updatedQuestionsData = [...prevQuestionsData];
+            updatedQuestionsData[selectedQuestion].description = value;
+            return updatedQuestionsData;
+        });
+    };
+
+    // Function to check all fields before creating or editing a quiz
     const checkAllFields = (quizzType) => {
         for (let i = 0; i < questionsData.length; i++) {
             const question = questionsData[i];
@@ -122,36 +124,29 @@ export const useQuestion = (quizzData) => {
                 toast.error(`Enter Description of question Q.${i + 1}`);
                 return false;
             }
-
-            if (quizzType!=="Poll"&&question.correctOption==='') {
+            if (quizzType !== "Poll" && question.correctOption === '') {
                 toast.error(`Choose CorrectOption of question Q.${i + 1}`);
                 return false;
             }
-
             if (!question.optionType) {
                 toast.error(`Select OptionType of question Q.${i + 1}`);
                 return false;
             }
-
             for (let j = 0; j < question.options.length; j++) {
                 const option = question.options[j];
-
                 if (question.optionType === 'text' && !option.text) {
                     toast.error(`Enter Text of question Q.${i + 1} at Option:${j + 1}`);
                     return false;
                 }
-
                 if (question.optionType === 'image' && !option.imageurl) {
                     toast.error(`Enter ImageURL of question Q.${i + 1} at Option:${j + 1}`);
                     return false;
                 }
-
                 if (question.optionType === 'textImage') {
                     if (!option.text) {
                         toast.error(`Enter Text of question Q.${i + 1} at Option:${j + 1}`);
                         return false;
                     }
-
                     if (!option.imageurl) {
                         toast.error(`Enter ImageURL of question Q.${i + 1} at Option:${j + 1}`);
                         return false;
@@ -161,42 +156,79 @@ export const useQuestion = (quizzData) => {
         }
         return true;
     };
-    const createQuiz = async (quizzData,nextpageHandle) => {
+    
+    
+  
+    // Function to create a new quiz
+    const createQuiz = async (quizzData, nextpageHandle) => {
         const isValid = checkAllFields(quizzData?.quizzType);
+       
         if (isValid) {
-            const result=await createQuizApi(quizzData.quizzName,quizzData.quizzType,questionsData,timer,token,dispatch)
-            if(result){
+            const result = await createQuizApi(quizzData.quizzName, quizzData.quizzType, questionsData, timer, token, dispatch);
+            if (result) {
                 nextpageHandle(result?.data?.quizzId);
             }
         }
+
     };
-    const editQuiz=async (quizzData)=>{
-      const isValid=checkAllFields(quizzData?.quizzType);
-      if (isValid) {
-       const result=await updateQuiz(quizzData?._id,questionsData,timer,token,dispatch)
-      }
-    }
-   // Function to handle cancellation of quizz creation
-    const onCancelHandler=()=>{
-    // Dispatching action to set create popup state to false
-      dispatch(setCreatePopup(false));
-      dispatch(setEditPopup(false));
-    }
+
+     // Function to edit an existing quiz
+    const editQuiz = async (quizzData) => {          
+       const isValid = checkAllFields(quizzData?.quizzType);
+       if (!isValid) return;
+        const result = await updateQuiz(quizzData?._id, questionsData, timer, token, dispatch);
+        if (result) {
+            dispatch(setEditPopup(false));
+        }
+    };
+
+    // Function to handle cancellation of quiz creation/editing
+    const onCancelHandler = () => {
+        dispatch(setCreatePopup(false)); // Hide create quiz popup
+        dispatch(setEditPopup(false)); // Hide edit quiz popup
+    };
+
+    // Effect to initialize question data from quizzData prop
     useEffect(() => {
-      if (quizzData) {
-          setQuestionsData(quizzData?.questions || [
-              {
-                  description: "",
-                  optionType: "text",
-                  options: [
-                      { text: "", imageurl: "" },
-                      { text: "", imageurl: "" }
-                  ],
-                  correctOption: ""
-              }
-          ]);
-          setTimer(quizzData?.timer || "OFF");
-      }
-  }, [quizzData]);
-    return { timer, setTimer, questionsData, createQuiz,selectedQuestion,addOption,removeOption,handleTimerChange,addQuestionHandler,removeQuestionHandler,changeQuestionHandler,handleOptionTypeChange,handleCorrectOptionChange,handleOptionValueChange,onChangeDescription,onCancelHandler,editQuiz};
+        if (quizzData) {
+            setQuestionsData(quizzData?.questions || [
+                {
+                    description: "",
+                    optionType: "text",
+                    options: [
+                        { text: "", imageurl: "" },
+                        { text: "", imageurl: "" }
+                    ],
+                    correctOption: ""
+                }
+            ]);
+            setTimer(quizzData?.timer);
+            setOriginalData({
+                questions: quizzData?.questions || [],
+                timer: quizzData?.timer 
+            });
+        }
+    }, [quizzData]);
+
+    // Return all state variables and functions
+    return {
+        timer,
+        setTimer,
+        questionsData,
+        createQuiz,
+        selectedQuestion,
+        addOption,
+        removeOption,
+        handleTimerChange,
+        addQuestionHandler,
+        removeQuestionHandler,
+        changeQuestionHandler,
+        handleOptionTypeChange,
+        handleCorrectOptionChange,
+        handleOptionValueChange,
+        onChangeDescription,
+        onCancelHandler,
+        editQuiz
+    };
 };
+

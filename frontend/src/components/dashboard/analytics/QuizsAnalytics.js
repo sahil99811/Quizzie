@@ -90,7 +90,9 @@ export default function QuizsAnalytics() {
      {
       !loading&&
       <div className={`${style.container} ${deletePopup && style.active}`}>
-        <h2>Quiz Analysis</h2>
+        <div className={style.headingContainer}>
+         <h2>Quiz Analysis</h2>
+        </div>
         <div className={style.tableContainer}>
           {/* Table displaying quiz data */}
           {quizzs?.length !== 0 && (
@@ -113,7 +115,7 @@ export default function QuizsAnalytics() {
                     <td>{formattedDate(quiz?.createdAt)}</td>
                     <td>{quiz.impression}</td>
                     <td className={style.buttons}>
-                      <img src={editlogo} alt='edit quiz' onClick={editPopupHandler} data-id={quiz._id}/>
+                      <img src={editlogo} alt='edit quiz' onClick={editPopupHandler} data-id={quiz._id} />
                       <img src={deletelogo} alt='delete quiz' onClick={openPopupHandler} data-id={quiz._id} />
                       <img src={sharelogo} alt='share quiz' onClick={shareQuizHandler} data-id={quiz._id} />
                     </td>

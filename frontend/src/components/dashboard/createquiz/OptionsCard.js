@@ -3,9 +3,9 @@ import deletelogo from '../../../assets/delete.png'
 import style from '../../../styles/dashboard/createquiz/OptionCard.module.css'
 export default function OptionsCard({optionType,questionsData,selectedQuestion,removeOption,addOption,handleCorrectOptionChange,handleOptionValueChange,quizzType}) {
     const renderTextOptions = () => (
-        <div className={style.textContainer}>
+        <div className={style.textContainer} >
           {questionsData[selectedQuestion]?.options?.map((option, index) => (
-            <div key={index} className={style.text}>
+            <div key={index} className={style.text} >
                 {
                     quizzType==="Q&A"&&<div className={style.radioOuterDiv}  onClick={(event)=>{handleCorrectOptionChange(event,index)}}>
                          <div className={`${style.radioInnerDiv} ${questionsData[selectedQuestion]?.correctOption === index&&style.activeRadio}`}></div>

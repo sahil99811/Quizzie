@@ -1,16 +1,11 @@
 import React from 'react'; // Import React library
 import style from '../styles/error.module.css'; // Import CSS module for styling
-
+import errorStatus from '../assets/statuscode.png'
 // Functional component to display error message
 export default function Error() {
     return (
         <div className={style.container}>
-            {/* Heading for the error */}
-            <h1>Error</h1>
-            {/* Message indicating page not found */}
-            <p>Page Not Found</p>
-            {/* Placeholder for error image (alt text provided) */}
-            <img src="errorImage" alt='errorImage' />
+            <img src={errorStatus} alt='errorImage'  />
         </div>
     );
 }
