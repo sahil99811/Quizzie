@@ -15,7 +15,7 @@ app.use(cors());
 
 // Optionally, configure CORS options
 app.use(cors({
-  origin: `${process.env.FRONTEND_BASE_URL}`, // Allow requests from any origin
+  origin: `${process.env.FRONTEND_BASE_URL}`, // Allow requests from this origin only 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP methods
   
 }));
