@@ -42,7 +42,7 @@ export default function QuestionCard() {
             {/* Quiz Details */}
             <div className={style.quizDetails}>
               <span>{`Created on : ${date}`}</span>
-              <span>{`Impression : ${quizz.impression}`}</span>
+              <span>{`Impression : ${quizz.impression< 1000 ?quizz.impression: `${(quizz.impression/ 1000).toFixed(1)}K`}`}</span>
             </div>
           </section>
           {/* Lower Container */}

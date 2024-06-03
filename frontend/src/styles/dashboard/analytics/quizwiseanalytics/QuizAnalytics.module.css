@@ -41,7 +41,7 @@
    margin-top: 0px;
    height:calc(100vh - 100px);
    overflow-y: scroll;
-   
+
 }
 .questionsData{
     display:flex ;
@@ -75,6 +75,7 @@
     .questionsData{
         width:82%;
         gap: 1.8rem;
+        margin-bottom: 1.2rem;
     }
 }
 
@@ -99,5 +100,7 @@
         
         width:82%;  
         gap: 2.1rem;
+        margin-bottom: 1.4rem;
     }
+
 }

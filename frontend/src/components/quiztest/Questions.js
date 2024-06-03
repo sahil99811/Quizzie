@@ -33,8 +33,20 @@ export default function Questions() {
   };
 
   useEffect(() => {
-    fetchQuestions();
+     fetchQuestions();
   }, [quizId]);
+  
+  // Function to handle next question button click
+  const nextQuestionHandler = () => {
+    if (qno < quizData?.questions?.length - 1) {
+        setQno(qno + 1);
+        setTimer(initialTimer); // Reset timer for next question
+      } else {
+        // Handle quiz completion
+        setQno(qno + 1); // Increment to show Score component
+      }
+    };
+  
 
   // Effect to manage timer countdown
   useEffect(() => {
@@ -53,17 +65,7 @@ export default function Questions() {
     }
   }, [timer]);
 
-  // Function to handle next question button click
-  const nextQuestionHandler = () => {
-    if (qno < quizData?.questions?.length - 1) {
-      setQno(qno + 1);
-      setTimer(initialTimer); // Reset timer for next question
-    } else {
-      // Handle quiz completion
-      setQno(qno + 1); // Increment to show Score component
-    }
-  };
-
+ 
   if (loading) {
     return <div className={style.container}><p className={style.loading}>Loading Quiz Questions...</p></div>;
   }
@@ -76,7 +78,9 @@ export default function Questions() {
           {qno < quizData?.questions?.length ? (
             <>
               <div className={style.totalQuestion}>
-                <span className={style.questionNo}>{`${qno + 1}/${quizData?.questions?.length}`}</span>
+                <span className={style.questionNo}>
+                 {`${qno + 1 < 10 ? "0" + (qno + 1) : qno + 1}/${quizData?.questions?.length < 10 ? "0" + quizData?.questions?.length : quizData?.questions?.length}`}
+                </span>
                 {initialTimer !== "OFF" && (
                   <span className={style.timer}>{`00:${timer < 10 ? `0${timer}` : timer}s`}</span>
                 )}
