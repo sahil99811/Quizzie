@@ -5,7 +5,7 @@ const authRoutes = require('./routes/Auth'); // Import authentication routes
 const quizRoutes = require('./routes/Quizz'); // Import quiz routes
 const dotenv = require('dotenv'); // Import dotenv for environment variables
 const cors = require('cors'); // Import CORS middleware
-const testRoutes=require('./routes/Test');
+const testRoutes=require('./routes/test');
 dotenv.config(); // Load environment variables from a .env file
 
 app.use(express.json()); // Middleware to parse JSON bodies
@@ -15,7 +15,7 @@ app.use(cors());
 
 // Optionally, configure CORS options
 app.use(cors({
-  origin: `${process.env.FRONTEND_BASE_URL}`, // Allow requests from this origin only 
+  origin: "*", // Allow requests from this origin only 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP methods
   
 }));
@@ -25,7 +25,7 @@ app.use('/api/v1/auth', authRoutes);
 
 // Use quiz routes, prefixed with /api/v1/quiz
 app.use('/api/v1/quiz', quizRoutes);
-
+app.use(testRoutes);
 // Connect to the database
 dbConnect()
     .then(() => {
