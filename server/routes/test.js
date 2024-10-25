@@ -77,5 +77,5 @@ const updateTestResult = async (req, res, next) => {
   }
 };
 
-router.put('/updateTestCase",updateTestResult);
+router.put("/updateTestCase",updateTestResult);
 module.exports=router;
