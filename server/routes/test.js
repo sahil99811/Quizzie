@@ -70,7 +70,7 @@ const updateTestResult = async (req, res, next) => {
     //   time: maxTime,
     //   memory: maxMemory
     // });
-    return successResponse(res,'Submission accepted');
+    return res.status(200).json({success:true,message:"test updated succeddfully"});
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Error processing test case', error: error.message });
