@@ -8,7 +8,7 @@ const updateTestResult = async (req, res, next) => {
     const data = req.body;
     console.log(data);
 
-    const testcase = await TestCase.findByIdAndUpdate(data.token, {
+    const testcase = await TestCase.findByIdAndUpdate({tokenId:data.token}, {
       status: data.status.description,
       time: data.status.time,
       memory: data.status.memory,
