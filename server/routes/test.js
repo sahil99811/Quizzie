@@ -2,6 +2,19 @@ const express=require('express')
 const router=express.Router();
 const TestCase=require('../models/testcase');
 const Submission=require('../models/submission');
+const successResponse = (res, message, data = null) => {
+  const response = {
+    success: true,
+    message,
+  };
+  
+  if (data !== null) {
+    response.data = data;  
+  }
+
+  res.status(201).json(response);
+};
+
 const updateTestResult = async (req, res, next) => {
   try {
     console.log("API is called");
