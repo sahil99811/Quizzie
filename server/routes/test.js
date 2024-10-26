@@ -8,14 +8,18 @@ const updateTestResult = async (req, res, next) => {
     const data = req.body;
     console.log(data);
 
-    const testcase = await TestCase.findByIdAndUpdate({tokenId:data.token}, {
-      status: data.status.description,
-      time: data.status.time,
-      memory: data.status.memory,
-      stdin: data.stdin,
-      expectedOutput: data.expected_output,
-      stdout: data.stdout,
-    }, { new: true });
+    const testcase = await TestCase.findOneAndUpdate(
+      { tokenId: data.token },
+      {
+        status: data.status.description,
+        time: data.status.time,
+        memory: data.status.memory,
+        stdin: data.stdin,
+        expectedOutput: data.expected_output,
+        stdout: data.stdout,
+      },
+      { new: true } 
+    );
 
  
     // if ([6, 7, 8, 9, 10, 11, 12, 13, 14].includes(data.status.id)) {
