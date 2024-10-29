@@ -19,20 +19,20 @@ const updateTestResult = async (req, res, next) => {
   try {
     console.log("API is called");
     const data = req.body;
-    console.log(data);
+    console.log(data,req.query);
 
-    const testcase = await TestCase.findOneAndUpdate(
-      { tokenId: data.token },
-      {
-        status: data.status.description,
-        time: data.status.time,
-        memory: data.status.memory,
-        stdin: data.stdin,
-        expectedOutput: data.expected_output,
-        stdout: data.stdout,
-      },
-      { new: true } 
-    );
+    // const testcase = await TestCase.findOneAndUpdate(
+    //   { tokenId: data.token },
+    //   {
+    //     status: data.status.description,
+    //     time: data.status.time,
+    //     memory: data.status.memory,
+    //     stdin: data.stdin,
+    //     expectedOutput: data.expected_output,
+    //     stdout: data.stdout,
+    //   },
+    //   { new: true } 
+    // );
 
  
     // if ([6, 7, 8, 9, 10, 11, 12, 13, 14].includes(data.status.id)) {
