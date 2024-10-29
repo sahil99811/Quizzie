@@ -19,7 +19,7 @@ const updateTestResult = async (req, res, next) => {
   try {
     console.log("API is called");
     const data = req.body;
-    console.log(data,req.query);
+    console.log(data);
 
     // const testcase = await TestCase.findOneAndUpdate(
     //   { tokenId: data.token },
