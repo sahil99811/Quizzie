@@ -14,7 +14,22 @@ const successResponse = (res, message, data = null) => {
 
   res.status(201).json(response);
 };
+const formatResponseData = async (data) => {
+  const decodeOutput = (output) => {
+    return output ? Buffer.from(output, 'base64').toString('utf-8') : null;
+  };
 
+  const responseData = {
+    time: data?.time || null,                       
+    memory: data?.memory || null,                  
+    status: data ? STATUS_MAP[data.status.id] : null, 
+    compileOutput: data ? decodeOutput(data.compile_output) : null,
+    stdout: data ? decodeOutput(data.stdout) : null, 
+    message: data?.message || null,                                            
+  };
+
+  return responseData;
+};
 const updateTestResult = async (req, res, next) => {
   try {
 
