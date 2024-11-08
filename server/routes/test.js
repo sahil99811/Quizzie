@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router();
-const TestCase=require('../models/testcase');
-const Submission=require('../models/submission');
+
+const submissionQuery = require('../models/submissionQuery');
 const successResponse = (res, message, data = null) => {
   const response = {
     success: true,
@@ -17,9 +17,7 @@ const successResponse = (res, message, data = null) => {
 
 const updateTestResult = async (req, res, next) => {
   try {
-    console.log("API is called");
-    const data = req.body;
-    console.log(data);
+
 
     // const testcase = await TestCase.findOneAndUpdate(
     //   { tokenId: data.token },
@@ -93,7 +91,25 @@ const updateTestResult = async (req, res, next) => {
     //   time: maxTime,
     //   memory: maxMemory,
     // });
+    console.log("callback called");
+    const data = req.body;
+    const {orderId}=req.query;
+    const result=await formatResponseData(data);
+    const submission = await submissionQuery.findOne({ orderId });
+    const tokenIndex = submission.output.token.indexOf(data.token);
 
+   const newSubmission = await submissionQuery.findOneAndUpdate(
+   { orderId },
+   { 
+    $set: { [`output.result.${tokenIndex}`]: result },
+    $inc: { 'input.totalTestCaseEvaluated': 1 } 
+   },
+   { new: true }
+  );
+  if(newSubmission.input.totalTestCase===newSubmission.input.totalTestCaseEvaluated){
+    newSubmission.status="Completed";
+    await newSubmission.save();
+  }
     return successResponse(res, 'Submission accepted');
   } catch (error) {
     console.error(error);
