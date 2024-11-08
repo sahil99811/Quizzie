@@ -118,7 +118,7 @@ const updateTestResult = async (req, res, next) => {
     // });
     console.log("callback called");
     const data = req.body;
-    console.log(req.headers);
+    console.log("headers:",req.headers);
     const {orderId}=req.query;
     const result=await formatResponseData(data);
     const submission = await submissionQuery.findOne({ orderId });
