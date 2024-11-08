@@ -2,6 +2,16 @@ const express=require('express')
 const router=express.Router();
 
 const submissionQuery = require('../models/submissionQuery');
+const STATUS_MAP = {
+  1: "In Queue",
+  2: "Processing",
+  3: "Accepted",
+  4: "Wrong Answer",
+  5: "Time Limit Exceeded",
+  6: "Compilation Error",
+  ...Object.fromEntries([...Array(6)].map((_, i) => [i + 7, "Runtime Error"])),
+  13: "Internal Error",
+};
 const successResponse = (res, message, data = null) => {
   const response = {
     success: true,
